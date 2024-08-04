@@ -3,19 +3,35 @@ import TodoList from "./components/TodoList";
 import TodoCreate from "./components/TodoCreate";
 import TodoComputed from "./components/TodoComputed";
 import TodoFilter from "./components/TodoFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const initialStateTodos = [
+/*const initialStateTodos = [
     { id: 1, title: "Complete online Javascript Course", completed: true },
     { id: 2, title: "Go to the gym", completed: false },
     { id: 3, title: "10 minutes meditation", completed: true },
     { id: 4, title: "Pick up groceries", completed: false },
     { id: 5, title: "Complete todo app on frontend Mentor", completed: false },
 ];
+*/
+
+const initialStateTodos = JSON.parse(localStorage.getItem("todos")) || [];
+
 
 const App = () => {
     const [todos, setTodos] = useState(initialStateTodos);
     const [filter, setFilter] = useState("all");
+
+
+
+
+    useEffect(() => {
+       localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
+
+
+
+
+
 
     const createTodo = (title) => {
         const newTodo = {
